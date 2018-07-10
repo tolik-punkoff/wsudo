@@ -5,4 +5,4 @@ NedoSudo (L) Werwolf/Hex_Laden/Tolik Punkoff, 2018
 
 Use:
 
-wsudo <program> [parameters]
+wsudo program [parameters]
