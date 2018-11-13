@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Security.Principal;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace wsudo
 {
@@ -35,14 +36,22 @@ namespace wsudo
             {
                 Process.Start(psi);
             }
-            catch (Exception ex)
+            catch (Win32Exception wex)
             {
-                if (admin) //админские права уже были, что-то испортилось
+                if (wex.NativeErrorCode == 1223) //нажали "Отмену" в окне UAC
                 {
-                    ErrorMessage = ex.Message;
+                    return true;
+                }
+                else //какой-то другой Win32 Error
+                {
+                    ErrorMessage = wex.NativeErrorCode.ToString() + " " + wex.Message;
                     return false;
                 }
-               //иначе может быть просто нажали отмену в UAC
+            }
+            catch (Exception ex) //какой-то другой Exception
+            {
+                ErrorMessage = ex.Message;
+                return false;
             }
             return true;
         }
