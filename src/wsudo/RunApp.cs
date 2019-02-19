@@ -20,10 +20,11 @@ namespace wsudo
                 WindowsBuiltInRole.Administrator);
         }
 
-        public static bool Excecute(string path, string parameters)
+        public static bool Excecute(string path, string parameters, string workdir)
         {
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = path;
+            psi.WorkingDirectory = workdir;
             psi.Arguments = parameters;            
             bool admin = IsAdmin();
 

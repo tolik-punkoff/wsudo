@@ -19,6 +19,7 @@ namespace wsudo
                 return;
             }
 
+            string workdir = System.IO.Directory.GetCurrentDirectory();
             string app = args[0];
             string parameters = "";
 
@@ -37,11 +38,11 @@ namespace wsudo
             }
             else
             {
-                if (!RunApp.Excecute(app, parameters))
+                if (!RunApp.Excecute(app, parameters, workdir))
                 {
                     Console.WriteLine("ERROR: " + RunApp.ErrorMessage);
                 }
-            }                                    
+            }            
         }
 
         static void PrintHelp()
